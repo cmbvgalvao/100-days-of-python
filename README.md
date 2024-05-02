@@ -1,2 +1,3 @@
 # 100-days-of-python
-100 Days of Code: The Complete Python Pro Bootcamp
+
+This repository is to keep the code produced by me during the Udemy course by Angela Yu, 100 Days of Code: The Complete Python Pro Bootcamp 
