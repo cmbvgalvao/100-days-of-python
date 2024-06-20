@@ -1,24 +1,38 @@
 import random
 from hangman_art import stages, logo
 from hangman_words import word_list
+from tools import clear_terminal
+
+
+
+print(f"{logo}\n")
 
 chosen_word = random.choice(word_list)
 word_length = len(chosen_word)
-display = []
+display = ['_'] * word_length
 end_of_game = False
 lives = len(stages) - 1
+guessed_letters= set()
 
-#Testing code
-#print(f'Pssst, the solution is {chosen_word}.')
-print(f"{logo}\n")
-for _ in range(word_length):
-    display.append("_")
-
+print("Guess the following word:")
 print(f"{' '.join(display)}\n")
 
 while not end_of_game:
-    guess = input("Guess a letter: ").lower()
+    #Try to get the users input. If the user's input is not an alphabetical value or it has already been guessed, try again.
+    try:
+        guess = input("Guess a letter: ").lower()
+        if not guess.isalpha() or len(guess) != 1:
+            raise ValueError("You typed an invalid value. Please chose a single letter")
+        if guess in guessed_letters:
+            print("You already guessed that letter. Try again.")
+            continue
+    except ValueError as e:
+        print(e)
+        continue
     
+    clear_terminal()
+    guessed_letters.add(guess)
+        
     #Check guessed letter
     for position in range(word_length):
         letter = chosen_word[position]
@@ -28,8 +42,10 @@ while not end_of_game:
     
     if guess not in chosen_word:
         lives -= 1
+        #print(lives)
         
-    print(stages[lives])
+    print(f"Letters guessed:\n{' '.join(sorted(guessed_letters))}")    
+    print(f"{stages[lives]}\n")
     
     if lives == 0:
         end_of_game = True
