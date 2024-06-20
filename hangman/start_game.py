@@ -22,6 +22,7 @@ while game_running == True:
         option = 0
         to_continue = input("Press Enter to go to the Main Menu")
     else:
+        clear_terminal()
         print("Thank you for playing Hangman!")
         game_running = False        
         
